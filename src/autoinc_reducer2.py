@@ -28,13 +28,11 @@ def flush():
     -------
     None
     """
-    global current_vin
-    global current_values
     total = 0
     for value in current_values:
         total += value
     print(f"{current_vin}\t{total}")
-    # print '%s\t%s' % (current_vin, total)
+    # print '{0}\t{1}'.format(current_vin, total)
 
 
 for line in sys.stdin:

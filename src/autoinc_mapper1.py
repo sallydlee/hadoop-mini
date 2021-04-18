@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#! /usr/bin/python
 import sys
 
 for line in sys.stdin:
@@ -7,4 +7,4 @@ for line in sys.stdin:
     # incident type, make, year
     values = (row_data[1], row_data[3], row_data[5])
     print(f"{vin_number}\t{values}")
-    # print '%s\t%s' % (vin_number, values)
+    # print '{0}\t{1}'.format(vin_number, values)

@@ -3,9 +3,9 @@ import sys
 
 # group level master info
 current_vin = None
+make = None
+year = None
 current_values = []
-# to store make, model, year values stored with 'I' incident types
-car_dict = {}
 
 
 def reset():
@@ -18,10 +18,12 @@ def reset():
     """
     global current_vin
     global current_values
-    global car_dict
+    global make
+    global year
     current_vin = None
     current_values = []
-    car_dict = {}
+    make = None
+    year = None
 
 
 def flush():
@@ -32,34 +34,32 @@ def flush():
     -------
     None
     """
-    global current_vin
-    global current_values
-    global car_dict
     for value in current_values:
         incident_filter = value[0]
         if incident_filter == "A":
-            make = car_dict[current_vin][1]
-            year = car_dict[current_vin][2]
             new_value = (incident_filter, make, year)
             print(f"{current_vin}\t{new_value}")
-            # print '%s\t%s' % (current_vin, new_value)
+            # print '{0}\t{1}' % (current_vin, new_value)
         else:
             continue
 
 
 for line in sys.stdin:
+    line = line.strip()
     row_data = line.split("\t")
     vin = row_data[0]
     tuple_values = eval(row_data[1])
     incident_type = tuple_values[0]
-    if incident_type == "I":
-        car_dict[vin] = tuple_values
 
     # detect key changes
     if current_vin != vin:
         if current_vin is not None:
             flush()
         reset()
+    if incident_type == "I":
+        make = tuple_values[1]
+        year = tuple_values[2]
+
     # update master info after key change handling
     current_values.append(tuple_values)
     current_vin = vin
