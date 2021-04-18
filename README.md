@@ -79,3 +79,10 @@ hadoop jar /usr/local/hadoop/contrib/streaming/hadoop-*streaming*.jar \
 -input output/all_accidents -output output/make_year_count
 ```
 
+After the job is completed we can check to see if we got the correct results by running the command:
+
+```
+hdfs dfs -cat output/make_year_count/part-00000
+```
+![successfulhdp](https://user-images.githubusercontent.com/41641011/115142908-0b49ef80-9ff9-11eb-91f1-2c0672e0cca9.jpg)
+
